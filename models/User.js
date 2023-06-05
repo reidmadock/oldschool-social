@@ -2,30 +2,55 @@ const { Schema, Types } = require('mongoose');
 
 const userSchema = new Schema(
     {
-        userId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId()
-        },
+        // userId: {
+        //     type: Schema.Types.ObjectId,
+        //     default: () => new Types.ObjectId()
+        // },
         username: {
             type: String,
             required: true,
-            // unique
-            // trimmed
+            unique: true,
+            trim: true,
         },
         email: {
             type: String,
             required: true,
-            // unique
-            // must match valid email address
+            unique: true,
+            // validate: function() {
+            //     let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+            //     return regex.test(email);
+            // },
+            match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, 'Please enter a valid email address']
         },
-        thoughts: {
-            // Array of _id values referencing the Thought model
+        // Array of _id values referencing the Thought model
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought',
+            }
+        ],
+        // Array of _id values reference the User model (self-reference);
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }
+        ]
+    },
+    {
+        toJSON: {
+            virtuals: true
         },
-        friends: {
-            // Array of _id values reference the User model (self-reference);
-        }
-        /*
-         TODO: Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
-        */
+        id: false,
     }
-)
+);
+
+// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+});
+
+// Initialize User model
+const User = model('user', userSchema);
+
+module.exports = User;

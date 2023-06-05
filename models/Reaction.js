@@ -22,7 +22,18 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            // Use a getter method to format the timestamp on query.
         },
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
     }
 );
+// Formatted Date getter.
+reactionSchema.createdAt.get(function (date) { return date.toISOString().split('T')[0]; });
+
+// Schema only, this does not have an instantiated model.
+
+module.exports = reactionSchema;
