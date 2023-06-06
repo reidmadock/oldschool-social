@@ -38,7 +38,8 @@ const roles = [
     'jungle',
     'bot',
     'support',
-    'main'
+    'main',
+    'onetrick'
 ];
 
 const comments = [
@@ -92,7 +93,7 @@ const genRandomIndex = (arr) => Math.floor(Math.random() * arr.length);
 
 const getRandomWord = () => `${lorum[genRandomIndex(lorum)]}`;
 
-const getRandomThought = (words) => {
+const genRandomThought = (words) => {
   let post = '';
   for (let i = 0; i < words; i++) {
     post += ` ${getRandomWord()}`;
@@ -104,18 +105,18 @@ const getRandomThought = (words) => {
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random username (don't need full names right now)
-const getRandomUsername = () => `${getRandomArrItem(names)}_${getRandomArrItem(roles)}`;
+const genRandomUsername = () => `${getRandomArrItem(names)}_${getRandomArrItem(roles)}`;
 
-const getNewUsername = (user) => `${user}_${getRandomArrItem(roles)}`;
+const genNewUsername = (user) => `${user}_${getRandomArrItem(roles)}`;
 
-const getRandomEmail = () => `${getRandomArrItem(names)}@lol.gg`;
+const genRandomEmail = () => `${getRandomArrItem(names)}@lol.gg`;
 
-const getRandomReactions = (int) => {
+const genRandomReactions = (int) => {
     const results = [];
     for (let i = 0; i < int; i++) {
       results.push({
-        text: getRandomArrItem(comments),
-        username: getRandomUsername().split(' ')[0],
+        reactionBody: getRandomArrItem(comments),
+        username: genRandomUsername().split(' ')[0],
       });
     }
     return results;
@@ -123,12 +124,11 @@ const getRandomReactions = (int) => {
 
 // Export the functions for use in seed.js
 module.exports = {
-    getRandomName,
-    getRandomReactions,
-    getRandomThought,
+    genRandomReactions,
+    genRandomThought,
     genRandomIndex,
-    getRandomUsername,
-    getNewUsername,
-    getRandomEmail
+    genRandomUsername,
+    genNewUsername,
+    genRandomEmail
 };
   

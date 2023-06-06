@@ -22,6 +22,7 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
+            get: formatDate,
         },
     },
     {
@@ -32,7 +33,10 @@ const reactionSchema = new Schema(
     }
 );
 // Formatted Date getter.
-reactionSchema.createdAt.get(function (date) { return date.toISOString().split('T')[0]; });
+// reactionSchema.createdAt.get(function (date) { return date.toISOString().split('T')[0]; });
+function formatDate(date) {
+    return date.toISOString().split('T')[0];
+}
 
 // Schema only, this does not have an instantiated model.
 
