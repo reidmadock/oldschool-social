@@ -20,15 +20,11 @@ connection.once('open', async () => {
     const users = [];
     const thoughts = [];
     const reactions = [...genRandomReactions(10)];
-    const reactionArrs = [
-        [...genRandomReactions(3)],
-        [...genRandomReactions(3)],
-        [...genRandomReactions(3)]
-    ];
 
     /*
      * Step one: Set up functions.
     */
+
     // Generate a 'thinker' which is just a fun thing to call the user, cause I have already
     // Used the word 'user' far too much. Adds to user array.
     const generateThinker = () => {
