@@ -1,11 +1,7 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 const userSchema = new Schema(
     {
-        // userId: {
-        //     type: Schema.Types.ObjectId,
-        //     default: () => new Types.ObjectId()
-        // },
         username: {
             type: String,
             required: true,
@@ -16,10 +12,6 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            // validate: function() {
-            //     let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-            //     return regex.test(email);
-            // },
             match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, 'Please enter a valid email address']
         },
         // Array of _id values referencing the Thought model
