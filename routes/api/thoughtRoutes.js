@@ -2,6 +2,13 @@ const router = require('express').Router();
 const {User, Thought } = require('../../models');
 const { findOneAndUpdate } = require('../../models/User');
 
+/** 
+ * Tested: get all Thoughts
+ * Works
+ * Tested: post new Thought
+ * Works
+ */
+
 // Get all thoughts
 router.get('/', async (req, res) => {
     try {
@@ -22,7 +29,7 @@ router.post('/', async (req, res) => {
         const dbThoughtData = await Thought.create({thoughtText, username, reactions});
         
         // Update the User data to inlude the newely created Thought
-        const dbUserData = await findOneAndUpdate({ _id: userId },
+        const dbUserData = await User.findOneAndUpdate({ _id: userId },
             {
                 $push: { thoughts: dbThoughtData._id }
             },
@@ -37,6 +44,7 @@ router.post('/', async (req, res) => {
 
         res.json({ message: 'Thought posted succesfully' });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 
@@ -151,7 +159,7 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 // Delete a reaction from a thought
 router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
     try {
-        const dbThoughtData = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },
+        const dbThoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId },
             {
                 $pull: { reactions: { reactionId: req.params.reactionId }}                
             },
