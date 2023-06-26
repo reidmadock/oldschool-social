@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
             return res.status(404).json({ message: 'No user was found at this ID' });
         }
 
-        res.json({ message: 'Thought posted succesfully' });
+        res.json({ message: 'Thought posted succesfully', thoughtId: dbThoughtData._id, userId: dbUserData._id });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -121,7 +121,7 @@ router.delete('/:thoughtId', async (req, res) => {
             return res.status(404).json({ message: 'No user was found at this ID.' });
         }
         
-        res.json({ message: 'Thought deleted successfully'});
+        res.json({ message: 'Thought deleted successfully', thoughtId: dbThoughtData._id, userId: dbUserData._id });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -159,9 +159,9 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 // Delete a reaction from a thought
 router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
     try {
-        const dbThoughtData = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },
+        const dbThoughtData = await Thought.updateOne({ _id: req.params.thoughtId },
             {
-                $pull: { reactions: { reactionId: req.params.reactionId }}                
+                $pullAll: { reactions: [{ reactionId: req.params.reactionId }] }                
             },
             {
                 runValidators: true,
@@ -173,8 +173,9 @@ router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
             return res.status(404).json({ message: 'Cannot delete reaction, no thought found'});
         }
 
-        res.json({ message: 'Reaction deleted successfully'});
+        res.json({ message: 'Reaction deleted successfully', thoughtId: dbThoughtData._id });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 
