@@ -1,6 +1,6 @@
 /*
- These are all names of LoL Champions
- Name data courtesy of Riot Games 
+ These are all names of LoL Champions.
+ Name data courtesy of Riot Games:
  https://developer.riotgames.com/docs/lol
 */
 const names = [
