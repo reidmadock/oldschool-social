@@ -22,8 +22,9 @@ router.post('/', async (req, res) => {
 });
 
 /**
-* TODO: get single user, update user, delete user.
+* ! Get single user, update user, delete user.
 */
+
 // Get a user by their ID
 router.get('/:userId', async (req, res) => {
     try {
@@ -81,7 +82,7 @@ router.delete('/:userId', async (req, res) => {
 });
 
 /**
- * TODO: get single friend, delete friend.
+ * ! Get single friend, delete friend.
  */
 router.post('/:userId/friends/:friendId', async (req, res) => {
     try {
