@@ -97,7 +97,7 @@ router.delete('/:thoughtId', async (req, res) => {
         }
     
         // Find User Thought belongs to and remove from User.
-        const dbUserData = await findOneAndUpdate({ _id: req.body.userId },
+        const dbUserData = await User.findOneAndUpdate({ _id: req.body.userId },
             {
                 $pull: { thoughts: dbThoughtData._id }
             },

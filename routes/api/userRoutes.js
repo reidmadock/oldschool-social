@@ -4,8 +4,8 @@ const {User, Thought } = require('../../models');
 // Get all users
 router.get('/', async (req, res) => {
     try {
-        const dbUserData = await User.find().select('-__v');
-        res,json(dbUserData);
+        const dbUserData = await User.find();
+        res.json(dbUserData);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -28,14 +28,17 @@ router.post('/', async (req, res) => {
 // Get a user by their ID
 router.get('/:userId', async (req, res) => {
     try {
-        const dbUserData = await User.findOne({ _id: req.params.userId }).select('-__v')
-            .populate('friends')
-            .populate('thoughts');
+        const dbUserData = await User.findOne({ _id: req.params.userId })
+        .populate('friends')
+        .populate('thoughts');
         
         if (!dbUserData) {
             return res.status(404).json({ message: 'No user found with this ID.' });
         }
+
+        res.json(dbUserData);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
