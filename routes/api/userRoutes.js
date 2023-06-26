@@ -102,7 +102,7 @@ router.post('/:userId/friends/:friendId', async (req, res) => {
             return res.status(404).json({ message: 'No user found at this ID'});
         }
 
-        res.josn(dbUserData);
+        res.json(dbUserData);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -122,7 +122,7 @@ router.delete('/:userId/friends/:friendId', async (req, res) => {
             return res.status(404).json({ message: 'No user found at this ID'});
         }
 
-        res.josn(dbUserData);
+        res.json(dbUserData);
         
     } catch (err) {
         res.status(500).json(err);

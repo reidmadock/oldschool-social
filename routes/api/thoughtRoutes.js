@@ -16,11 +16,13 @@ router.get('/', async (req, res) => {
 // Post a new thought
 router.post('/', async (req, res) => {
     try {
+        const { thoughtText, username, reactions } = req.body;
+        const { userId } = req.body; // Seperate destructuring, incase I ever want to switch to signed-in user
         // Create the thought
-        const dbThoughtData = await Thought.create(req.body);
+        const dbThoughtData = await Thought.create({thoughtText, username, reactions});
         
         // Update the User data to inlude the newely created Thought
-        const dbUserData = await findOneAndUpdate({ _id: req.body.userId },
+        const dbUserData = await findOneAndUpdate({ _id: userId },
             {
                 $push: { thoughts: dbThoughtData._id }
             },

@@ -90,7 +90,6 @@ connection.once('open', async () => {
         user.friends = [randomFriends[0]._id, randomFriends[1]._id]; // Assign the random friends to the user
         // Add friends array to User
         console.log('User friends: ',user.friends);
-        // console.log(user);
         await User.findOneAndUpdate({ _id: user._id},
             {
                 $push: { friends: user.friends }
@@ -105,7 +104,6 @@ connection.once('open', async () => {
                 }
             }
         );
-        // console.log(dbUserData);
     });
     // await User.updateMany(users);
 
