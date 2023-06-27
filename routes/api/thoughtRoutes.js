@@ -130,6 +130,8 @@ router.delete('/:thoughtId', async (req, res) => {
 
 /**
  * ! Add reaction, delete reaction.
+ * Add Reaction to a Thought: Works
+ * Delete Reaction from a Thought: Works
  */
 
 // Add reactions to a thought
@@ -161,7 +163,7 @@ router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
     try {
         const dbThoughtData = await Thought.updateOne({ _id: req.params.thoughtId },
             {
-                $pullAll: { reactions: [{ reactionId: req.params.reactionId }] }                
+                $pull: { reactions: { reactionId: req.params.reactionId } }                
             },
             {
                 runValidators: true,
