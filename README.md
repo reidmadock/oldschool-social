@@ -25,7 +25,7 @@ Be sure to use ```npm run seed``` before starting the application. Seed data is 
 This is not a deployed application, however, [here](https://youtu.be/wx9Prif19LA) is a link to a walkthrough video of the application <br />
 
 ## Screenshot
-Here is a screenshot of the application running. <br /> ![Screenshot]()
+Here is a screenshot of the application running. <br /> ![Screenshot](./assets/postmanscrshot.png)
 
 ## Contact me
 Here is my [GitHub Profile](https://github.com/reidmadock) <br />
