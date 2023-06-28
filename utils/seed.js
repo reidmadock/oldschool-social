@@ -87,11 +87,25 @@ connection.once('open', async () => {
         const randomFriends = users
         .filter((friend) => friend !== user) // Exclude the current user from potential friends
         // .map((friend) => friend._id); // Map the friend objects to their _id values
-
         user.friends = [randomFriends[0]._id, randomFriends[1]._id]; // Assign the random friends to the user
-        // const doc = await user.save();
-        // console.log('Saved user: ', doc);'
+        // Add friends array to User
+        console.log('User friends: ',user.friends);
+        await User.findOneAndUpdate({ _id: user._id},
+            {
+                $push: { friends: user.friends }
+            },
+            {
+                new: true
+            }, function (err, docs) {
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log('Successfuly updated: ', docs);
+                }
+            }
+        );
     });
+    // await User.updateMany(users);
 
     // await User.updateMany({friends: users.friends});    
 
